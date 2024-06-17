@@ -11,17 +11,18 @@ namespace AccountManagementData
     public class SqlDbData
     {
 
-        static string connectionString
+        string connectionString
         = "Data Source =INDALEEN\\SQLEXPRESS; Initial Catalog = AccountManagement; Integrated Security = True;";
 
-        static SqlConnection sqlConnection = new SqlConnection(connectionString);
+        SqlConnection sqlConnection;
 
-        public static void Connect()
+        public void Connect()
         {
+            sqlConnection = new SqlConnection(connectionString);
             sqlConnection.Open();
         }
 
-        public static List<User> GetUsers()
+        public List<User> GetUsers()
         {
             string selectStatement = "SELECT username, password FROM users";
 
@@ -49,7 +50,7 @@ namespace AccountManagementData
             return users;
         }
 
-        public static int AddUser(string username, string password)
+        public int AddUser(string username, string password)
         {
             int success;
 
@@ -68,8 +69,10 @@ namespace AccountManagementData
             return success;
         }
 
-        public static void UpdateUser(string username, string password)
+        public int UpdateUser(string username, string password)
         {
+            int success;
+
             string updateStatement = $"UPDATE users SET password = @Password WHERE username = @username";
             SqlCommand updateCommand = new SqlCommand(updateStatement, sqlConnection);
             sqlConnection.Open();
@@ -77,22 +80,28 @@ namespace AccountManagementData
             updateCommand.Parameters.AddWithValue("@Password", password);
             updateCommand.Parameters.AddWithValue("@username", username);
 
-            updateCommand.ExecuteNonQuery();
+            success = updateCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
+
+            return success;
         }
 
-        public static void DeleteUser(string username)
+        public int DeleteUser(string username)
         {
+            int success;
+
             string deleteStatement = $"DELETE FROM users WHERE username = @username";
             SqlCommand deleteCommand = new SqlCommand(deleteStatement, sqlConnection);
             sqlConnection.Open();
 
             deleteCommand.Parameters.AddWithValue("@username", username);
 
-            deleteCommand.ExecuteNonQuery();
+            success = deleteCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
+
+            return success;
         }
     }
 }
