@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AccountManagementData">
+      <HintPath>..\AccountManagement\Client\bin\Debug\net7.0\AccountManagementData.dll</HintPath>
+    </Reference>
+    <Reference Include="AccountManagementModels">
+      <HintPath>..\AccountManagement\Client\bin\Debug\net7.0\AccountManagementModels.dll</HintPath>
+    </Reference>
+    <Reference Include="AccountManagementServices">
+      <HintPath>..\AccountManagement\Client\bin\Debug\net7.0\AccountManagementServices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
