@@ -1,10 +1,5 @@
 ﻿using AccountManagementModels;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountManagementData
 {
@@ -16,22 +11,21 @@ namespace AccountManagementData
 
         SqlConnection sqlConnection;
 
-        public void Connect()
+        public SqlDbData()
         {
             sqlConnection = new SqlConnection(connectionString);
-            sqlConnection.Open();
         }
 
         public List<User> GetUsers()
         {
-            string selectStatement = "SELECT username, password FROM users";
+            string selectStatement = "SELECT username, password, status FROM users";
 
             SqlCommand selectCommand = new SqlCommand(selectStatement, sqlConnection);
 
             sqlConnection.Open();
-            SqlDataReader reader = selectCommand.ExecuteReader();
-
             List<User> users = new List<User>();
+
+            SqlDataReader reader = selectCommand.ExecuteReader();
 
             while (reader.Read())
             {
@@ -41,6 +35,7 @@ namespace AccountManagementData
                 User readUser = new User();
                 readUser.username = username;
                 readUser.password = password;
+                readUser.status = Convert.ToInt16(reader["status"]);
 
                 users.Add(readUser);
             }
