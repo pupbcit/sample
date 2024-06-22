@@ -20,6 +20,13 @@ namespace AccountManagementServices
             return result;
         }
 
+        public bool CreateUser(string username, string password)
+        {
+            User user = new User { username = username, password = password };
+
+            return CreateUser(user);
+        }
+
         public bool UpdateUser(User user)
         {
             bool result = false;
@@ -30,6 +37,13 @@ namespace AccountManagementServices
             }
 
             return result;
+        }
+
+        public bool UpdateUser(string username, string password)
+        {
+            User user = new User { username = username, password = password };
+
+            return UpdateUser(user);
         }
 
         public bool DeleteUser(User user)
