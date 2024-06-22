@@ -49,12 +49,13 @@ namespace AccountManagementData
         {
             int success;
 
-            string insertStatement = "INSERT INTO users VALUES (@username, @password)";
+            string insertStatement = "INSERT INTO users VALUES (@username, @password, @status)";
 
             SqlCommand insertCommand = new SqlCommand(insertStatement, sqlConnection);
 
             insertCommand.Parameters.AddWithValue("@username", username);
             insertCommand.Parameters.AddWithValue("@password", password);
+            insertCommand.Parameters.AddWithValue("@status", 1);
             sqlConnection.Open();
 
             success = insertCommand.ExecuteNonQuery();
