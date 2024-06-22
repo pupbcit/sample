@@ -10,10 +10,12 @@ namespace AccountManagement.API.Controllers
     public class UserController : Controller
     {
         UserGetServices _userGetServices;
+        UserTransactionServices _userTransactionServices;
 
         public UserController()
         {
             _userGetServices = new UserGetServices();
+            _userTransactionServices = new UserTransactionServices();
         }
 
         [HttpGet]
@@ -30,5 +32,23 @@ namespace AccountManagement.API.Controllers
 
             return users;
         }
+
+        [HttpPost]
+        public JsonResult AddUser(User request)
+        {
+            var result = _userTransactionServices.CreateUser(request.username, request.password);
+
+            return new JsonResult(result);
+        }
+
+        [HttpPatch]
+        public JsonResult UpdateUser(User request)
+        {
+            var result = _userTransactionServices.UpdateUser(request.username, request.password);
+
+            return new JsonResult(result);
+        }
+
+
     }
 }
